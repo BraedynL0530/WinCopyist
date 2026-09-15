@@ -6,6 +6,8 @@ import (
 	"sync"
 )
 
+//Internal tool, not gonna have indepth docs, im probably only one whos gonna see it :3
+
 const maxCharLimit = 500
 
 type RollingBuffer struct {
@@ -31,10 +33,17 @@ func (r *RollingBuffer) append(ch rune) {
 	}
 }
 
-func (r *RollingBuffer) Reset(disabled bool) {}
+func (r *RollingBuffer) Reset(disable bool) { // like when u switch textboxes it resets
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	r.buf.Reset()
+	r.disabled = disable
+}
 
-func (r *RollingBuffer) SnapShot() string {
-	return "temp"
+func (r *RollingBuffer) SnapShot() string { //self explanatory,
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	return r.buf.String()
 }
 
 func StartCapture(buffer *RollingBuffer) {
@@ -47,5 +56,3 @@ func StartCapture(buffer *RollingBuffer) {
 		}
 	}
 }
-
-//ts pmo
