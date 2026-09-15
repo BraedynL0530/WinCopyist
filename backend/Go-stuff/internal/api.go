@@ -52,7 +52,7 @@ func (s *TCPServer) handleConnection(conn net.Conn, handler DataHandler) {
 func (s *TCPServer) Send(text string) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if s.conn != nil {
+	if s.conn == nil {
 		return net.ErrClosed
 	}
 	_, err := s.conn.Write([]byte(text + "\n"))
