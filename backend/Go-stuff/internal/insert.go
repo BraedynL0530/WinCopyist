@@ -8,7 +8,7 @@ import (
 
 type InsertionData struct {
 	text     string
-	length   int
+	length   int  // same as below just extra data to help optmize llm!
 	approved bool // tab pressed or not, possibly useful data/telemetry whatever its called
 	relevant bool // thumbs up in gui = yes thumbs down = no, for gui/llm later
 }
@@ -16,7 +16,15 @@ type InsertionData struct {
 func findBox() (x, y int) { // needs to find where cursor is and return int/string of what box
 	return 1, 0 //temp
 }
-func Insert(text string, length int) {
-	robot.WriteAll(text)
-	robot.CmdV()
+func Insert(text string) error {
+	err := robot.WriteAll(text)
+	if err != nil {
+		return err
+	}
+	err = robot.CmdV()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
