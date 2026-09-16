@@ -16,7 +16,15 @@ type InsertionData struct {
 func findBox() (x, y int) { // needs to find where cursor is and return int/string of what box
 	return 1, 0 //temp
 }
-func Insert(text string) {
-	robot.WriteAll(text)
-	robot.CmdV()
+func Insert(text string) error {
+	err := robot.WriteAll(text)
+	if err != nil {
+		return err
+	}
+	err = robot.CmdV()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
