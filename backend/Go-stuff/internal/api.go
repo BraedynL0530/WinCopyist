@@ -17,7 +17,7 @@ type TCPServer struct {
 	mu       sync.Mutex
 }
 
-func startServer(port string, handler DataHandler) (*TCPServer, error) {
+func StartServer(port string, handler DataHandler) (*TCPServer, error) {
 	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		return nil, err
